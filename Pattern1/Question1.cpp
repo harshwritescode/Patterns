@@ -114,6 +114,19 @@ public:
 
 
 
+Aab Sabse Important Learning
+
+Module1: Question kya boal rha hai 
+Module2: Input kya hai
+Module3: Brute Force kya hoga
+Module4: Brute force mein repeat kya ho raha hai?
+Module5: Us repeat ko kaun sa data structure optimize karega?
+
+Array → HashMap → Stack → Queue → Set → Heap
+
+Module6: Dry run
+
+
 
 
 
