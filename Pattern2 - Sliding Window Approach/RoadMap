@@ -12,3 +12,92 @@ Hum is order mein chalenge:
 10)Longest Repeating Character Replacement
 11)Minimum Window Substring
 
+
+Phase 1: Fixed Size Sliding Window
+1. Maximum Sum Subarray of Size K
+Maintain: Sum
+2. Maximum Average Subarray I
+Maintain: Sum
+3. First Negative Integer in Every Window
+Maintain: Negative Elements
+4. Count Occurrences of Anagrams
+Maintain: Character Frequency
+5. Count Distinct Elements in Every Window
+Maintain: Element Frequency
+6. Maximum Number of Vowels in a Substring of Length K
+Maintain: Vowel Count
+7. Sliding Window Maximum
+Maintain: Window Maximum
+
+Phase 2: Variable Size Sliding Window (Sum Based)
+8. Longest Subarray Sum = K (Positive Numbers)
+9. Minimum Size Subarray Sum
+10. Max Consecutive Ones III
+11. Get Equal Substrings Within Budget
+12. Frequency of the Most Frequent Element (window version understanding)
+
+
+Phase 3:At Most K Pattern
+13. Fruit Into Baskets
+14. Longest Substring With At Most K Distinct Characters
+15. Longest Substring With At Most Two Distinct Characters
+16. Subarrays With K Different Integers
+
+Phase 4: No Duplicate Pattern
+17. Longest Substring Without Repeating Characters
+18. Maximum Erasure Value
+19. Longest Nice Subarray
+
+Phase 5: Frequency Based Window
+20. Longest Repeating Character Replacement
+21. Permutation in String
+22. Find All Anagrams in a String
+23. Check Inclusion
+
+Phase 6: Advanced Shrinking Logic
+24. Minimum Window Substring
+25. Smallest Distinct Window
+26. Minimum Window Subsequence
+
+Phase 7:Deque Based Sliding Window
+27. Sliding Window Maximum
+28. Sliding Window Minimum
+29. Shortest Subarray with Sum at Least K
+30. Constrained Subsequence Sum
+
+Phase 8: Prefix Sum + Sliding Window Mix
+31. Binary Subarrays With Sum
+32. Count Number of Nice Subarrays
+33. Subarray Product Less Than K
+34. Continuous Subarray Sum
+
+
+Interview Priority List (Must Do)
+
+1. Maximum Sum Subarray of Size K
+2. First Negative Integer in Every Window
+3. Count Occurrences of Anagrams
+4. Longest Subarray Sum = K (Positive)
+5. Minimum Size Subarray Sum
+6. Max Consecutive Ones III
+7. Fruit Into Baskets
+8. Longest Substring Without Repeating Characters
+9. Longest Substring With At Most K Distinct Characters
+10. Longest Repeating Character Replacement
+11. Permutation in String
+12. Minimum Window Substring
+13. Sliding Window Maximum
+
+
+
+
+Tum pehle question ko apni language me modules me todho:
+
+Step 1: Question convert into your form
+Step 2: Input observe karo
+Step 3: Brute Force socho
+Step 4: Repeat work identify karo
+Step 5: Pattern identify karo
+Step 6: Generic Template banao
+Step 7: Dry Run
+Step 8: Code likho
