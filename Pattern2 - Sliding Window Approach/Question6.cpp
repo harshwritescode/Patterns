@@ -53,7 +53,7 @@ ye hona chiye
 
 step3:Brute force socho
 1.Mai har possible substring generate krunga
-2.aab har subtring ke liye check krunha
+2.aab har subtring ke liye check krunga
    kya isme pattern (t) ke saare character present hai
 3.mihl gaya to answer calculate krunga
 
@@ -153,5 +153,231 @@ public:
             }
         }
                   return ans;
+    }
+};
+
+
+steop4: Brute Force mein repeat kya ho rha hai
+
+start = 0
+
+start = 0
+
+A
+AD
+ADO
+ADOB
+ADOBE
+ADOBEC
+ADOBECO
+ADOBECOD
+...
+
+start = 1
+
+D
+DO
+DOB
+DOBE
+DOBEC
+DOBECO
+DOBECOD
+...
+
+Observation:
+1.Har baar nayi substring bana rhe hai
+Example: ADOBEC ---  DOBEC
+Kitna data same hai?   DOBEC
+Bas: A remove hua
+
+2.Har baar frequency dobbara calculate kr rhe hai
+
+ ADOBEC
+A=1
+D=1
+O=1
+B=1
+E=1
+C=1    
+
+DOBEC
+D=1
+O=1
+B=1
+E=1
+C=1 
+Ke liye fir se poora map bana rahe hain.
+Reality mein bas A remove hua hai
+
+3.Window mein haar baar sirf 2 cheej change ho rhi hai
+ADOBEC ---  DOBEC
+
+kya hua -- A REMOVE ADD O
+
+Window ko dobara build karne ki zarurat nahi.
+Left character remove
+Right character add
+
+4.Hum substring banane ke liye
+
+s.substr(...)
+use kr rhe hai 
+ye bhuat expensive hai 
+
+actually hume left right hi maintain krne hai
+
+5.Hume poori string nahi chahiye.
+  Hume sirf ye pata karna hai:
+       Current window valid hai ya nahi?
+       Kya current window me
+       A,B,C present hain?
+
+
+Window = [left .... right]
+
+right ko move karenge expand krne ke liye
+jab tak valid window nhi mihl jaati 
+valid mihl jaye to left++ 
+karke window ko chota krenge
+Kyuki:
+minimum length
+dhundhni hai.
+
+Step 5: Pattern identify karo
+
+Har baar nayi substring bana rahe the
+Har baar uski frequency dobara calculate kar rahe the
+
+Fixed Size Sliding Window ❌
+
+Variable Size Sliding Window ✔
+1. Variable Size Sliding Window lagega
+
+2. Pattern ki frequency store karenge
+   (patternFreq)
+
+3. Current window ki frequency store karenge
+   (windowFreq)
+
+4. left aur right pointer se window maintain karenge
+
+5. right se expand karenge
+
+6. Valid window milte hi left se shrink karenge
+
+7. Har valid window par minimum length update karenge
+
+8. Answer ke liye start index aur minimum length store karenge
+
+
+step6:Dry Run
+
+s = "ADOBECODEBANC"
+t = "ABC"
+
+Pattern Frequency
+A = 1
+B = 1
+C = 1
+
+patternFreq = {A:1, B:1, C:1}
+
+left=0
+right=0
+windowfreq=[]
+valid=0 (initially)
+minlen=INT_MAX;
+ans=""
+
+Step-by-step Sliding Window
+Right = 0 → 'A'    window = A    A count match ✔   windowfreq=[ A=1  ]
+Right = 1 → 'D'    window = A D  still invalid
+Right = 2 → 'O'    window = A D O still invalid
+Right = 3 → 'B'    window= A D O B   A ✔B ✔ C ❌  windowfreq=[ A=1  B=1 ]
+Right = 4 → 'E'    window=A D O B E  still invalid
+Right = 5 → 'C'    window=A D O B E C   A ✔B ✔C ✔  windowfreq=[ A=1  B=1  C=1]
+
+VALID WINDOW FOUND   length = 6    minLen = 6 ans = "ADOBEC"
+
+
+| right | char | windowFreq update     | formed | valid? | left move     | window         | minLen | ans    |
+| ----- | ---- | --------------------- | ------ | ------ | ------------- | -------------- | ------ | ------ |
+| 0     | A    | A=1                   | 1      | ❌      | -             | A              | INF    | ""     |
+| 1     | D    | D=1                   | 1      | ❌      | -             | AD             | INF    | ""     |
+| 2     | O    | O=1                   | 1      | ❌      | -             | ADO            | INF    | ""     |
+| 3     | B    | B=1                   | 2      | ❌      | -             | ADOB           | INF    | ""     |
+| 4     | E    | E=1                   | 2      | ❌      | -             | ADOBE          | INF    | ""     |
+| 5     | C    | C=1                   | 3      | ✔      | shrink starts | ADOBEC         | 6      | ADOBEC |
+| 5     | -    | A removed → A=0       | 2      | ❌      | stop shrink   | DOBEC          | 6      | ADOBEC |
+| 6     | O    | O=2                   | 2      | ❌      | -             | DOBECO         | 6      | ADOBEC |
+| 7     | D    | D=2                   | 2      | ❌      | -             | DOBECOD        | 6      | ADOBEC |
+| 8     | E    | E=2                   | 2      | ❌      | -             | DOBECODE       | 6      | ADOBEC |
+| 9     | B    | B=2                   | 2      | ❌      | -             | DOBECODEB      | 6      | ADOBEC |
+| 10    | A    | A=1                   | 3      | ✔      | shrink starts | DOBECODEBA     | 6      | ADOBEC |
+| 10    | -    | shrink reduces window | 3      | ✔      | shrink        | CODEBA         | 6      | ADOBEC |
+| 10    | -    | more shrink           | 3      | ✔      | shrink        | ODEBANC → BANC | 4      | BANC   |
+| 11    | N    | N=1                   | 3      | ✔      | shrink        | BANC           | 4      | BANC   |
+| 12    | C    | C=2                   | 3      | ✔      | shrink        | BANC           | 4      | BANC   |
+
+
+
+
+Step 7: Final Pattern + Interview Ready Template
+
+Brute Force → Repeat work
+Repeat work → Sliding Window idea
+Sliding Window → Variable size + HashMap
+
+Core Idea:
+1. windowFreq (current window ka count)
+2. needFreq (t ka count)
+3. formed (kitne characters satisfy ho chuke hain)
+4. left, right pointers
+
+
+class Solution {
+public:
+    string minWindow(string s, string t) {
+               unordered_map<char,int> need, window;
+
+        for(auto it:t){
+            need[it]++;
+        }
+
+        int left=0;
+        int right=0;
+        int minlength=INT_MAX;
+        int startindex=0;
+        int formed=0;
+        int required=need.size();
+
+        while(right<s.size()){
+            char ch=s[right];
+
+            window[ch]++;
+
+            if(need.count(ch) && window[ch]==need[ch] ){
+               formed++;
+            }
+
+            while(left<=right && formed==required){
+                char temp=s[left];
+
+                if(right-left+1<minlength){
+                    minlength=right-left+1;
+                    startindex=left;
+                }
+
+                window[temp]--;
+
+                if(left<=right && window[temp]<need[temp]){
+                    formed--;
+                }
+
+                left++;
+            }
+            right++;
+        }
+      return minlength == INT_MAX ? "" : s.substr(startindex, minlength); 
     }
 };
