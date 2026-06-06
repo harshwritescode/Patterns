@@ -1,0 +1,124 @@
+Main tumhe Sliding Window → Failure → Kadane ka transition generic template mein samjhata hoon
+
+Step 1: Sliding Window ki soch kya hai?
+Mere pass ek current window hai 
+
+agar window valid hai 
+    right badaho
+
+agar window invaild hai
+    left badaho
+
+Matlab hum assume karte hai:
+      window ko thoda adjust krke answer tak puuch skate hai
+
+Step 2: Sliding Window ki hidden requirement
+  Window ke liye
+  VALID / INVALID
+  define kiya ja sake.     
+
+   1.At most K distinct  distinct <= K
+   2.Sum >= target
+
+ Rule clear hai.
+   sliding Window ki sabse badi assumption
+   Sliding Window assume karta hai:
+
+> Agar current window kharab hai,
+> to left ya right move karke use better bana sakte hain.
+
+Matlab
+Current window ki information
+future decision lene ke liye sufficient hai.
+
+Step 3: Ab aisa question lao jahan ye assumption toot jaye
+Maximum Subarray Sum:[-2,1,-3,4,-1,2,1,-5,4]
+Window invalid kab hai?
+
+Koi answer nahi. milega aab hume 
+
+sum<0  invalid hai?? nahi kyuki [-1,100]  -1 future mein useful ho sakta hai
+sum>0  valid hai?? koi gurantee nahi
+
+Matlab:
+VALID / INVALID
+hi define nahi ho raha.
+To Sliding Window ka base hi toot gaya.
+
+Step 5: Ab nayi soch chahiye
+Sliding Window puchta tha:
+  left move karu?
+  right move karu?
+
+Lekin yahan actual question hai: 
+ Current subarray continue karu
+ ya naya subarray start karu? 
+
+ Aur yahi Kadane ka birth hai.
+
+ Sliding Window tab tak chalti hai jab tak window ko adjust karke answer ki taraf badh sakte ho.
+ Important:Jab problem window adjustment se nahi, balki "current contribution ko continue ya discard" karne se solve hoti hai, tab Kadane aata hai.
+
+Phase 1: Pure Kadane (Foundation)
+Objective:
+Current subarray continue karu?
+ya yahin se naya start karu?
+
+Questions:
+1.Maximum Subarray (LC 53)
+2.Largest Sum Contiguous Subarray (GFG)
+3.Print Maximum Sum Subarray
+4.Maximum Difference Between Two Elements
+
+Phase 2: Kadane Variations
+1.Maximum Absolute Sum (LC 1749)
+2.Maximum Product Subarray (LC 152)
+3.K Concatenation Maximum Sum (LC 1191)
+
+Phase 3: Circular Kadane
+1.Maximum Circular Subarray Sum (LC 918)
+
+Phase 4: Kadane + DP
+1.Maximum Sum After One Deletion (1186)
+2.Maximum Subarray Sum After One Operation (1746)
+
+Phase 5: Hidden Kadane
+1.Best Time to Buy and Sell Stock (121)
+2.Maximum Score of Spliced Array (2321)
+
+Phase 6: Multiple Kadane
+1.Two Non Overlapping Subarrays (1031)
+2.Three Non Overlapping Subarrays (689)
+
+Phase 7: 2D Kadane
+1.Maximum Sum Rectangle in Matrix
+
+
+Har Kadane question se pehle sirf ye 5 questions pucho:
+
+1. Main optimize kya kar raha hu?
+   (sum/product/profit/etc)
+
+2. Kya current segment continue karna beneficial hai?
+
+3. Kya current segment discard karna beneficial hai?
+
+4. Har index pe meri state kya hai?
+   (currSum, currProduct, etc)
+
+5. Global answer kaise update hoga?
+
+
+Tum pehle question ko apni language me modules me todho:
+
+Step 1: Question convert into your form
+Step 2: Input observe karo
+Step 3: Brute Force socho
+Step 4: Repeat work identify karo
+Step 5: Pattern identify karo
+Step 6: Generic Template banao
+Step 7: Dry Run
+Step 8: Code likho
+
+
+
