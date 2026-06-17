@@ -242,3 +242,53 @@ Step 3: suffix sum max
 Step 4: total sum
 Step 5: combine cases
 
+
+class Solution {
+public:
+    int kConcatenationMaxSum(vector<int>& arr, int k) {
+        const int MOD=1000000007;
+        int n=arr.size();
+        long long currentmax=arr[0];
+        long long bestmax=arr[0];
+
+        for(int i=1;i<n;i++){
+            currentmax=max(currentmax+arr[i],(long long)arr[i]);
+            bestmax=max(currentmax,bestmax);
+        } 
+
+        long long total_sum=0;
+        for(int i=0;i<n;i++){
+            total_sum+=arr[i];
+        }
+
+        long long prefix_sum=0,sum=0;
+        for(int i=0;i<n;i++){
+             sum+=arr[i];
+             prefix_sum=max(prefix_sum,sum);
+        }
+
+        long long suffix_sum=0;
+        sum=0;
+        for(int i=n-1;i>=0;i--){
+            sum+=arr[i];
+            suffix_sum=max(suffix_sum,sum);
+        }
+
+       long long ans;
+        if(k==1){
+            ans=bestmax;
+        }else{
+             if(total_sum>0){
+                // iska mtlb multiple copies ho sakti hai
+    // jisme first array ka kuch part + middle mein bhuat saari copies + last array ka kuch part
+    ans=max(bestmax,suffix_sum+(k-2)*total_sum+prefix_sum);
+           
+             }else{
+                   ans=max(bestmax,suffix_sum+prefix_sum); 
+             }
+        }
+
+        return ans%MOD;
+
+    }
+};
