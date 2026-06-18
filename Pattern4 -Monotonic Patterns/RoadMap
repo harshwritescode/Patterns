@@ -1,0 +1,201 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+/*
+=================================================================
+   MONOTONIC STACK PATTERN - Birth Story (Next Greater Element)
+=================================================================
+
+   Hum kya chahte hain?
+   Har element ke liye uska "Next Greater Element" (right side ka
+   pehla bada element) nikalna hai.
+
+   Example:
+        [2, 1, 3]
+        2 -> 3
+        1 -> 3
+        3 -> -1   (kyunki right mein koi bada nahi hai)
+*/
+
+
+/* =================================================================
+   STEP 1 & 2 : BRUTE FORCE
+   -----------------------------------------------------------------
+   Soch: Har element ke liye right mein scan karo,
+         pehla bada element dhoondo.
+
+   Repeat Work Identify:
+         2 ke liye 3 dhoonda.
+         Fir 1 ke liye bhi wahi 3 dhoond rahe ho.
+         => SAME ELEMENTS BAAR BAAR VISIT ho rahe hain.
+
+   Time Complexity : O(n^2)  -> Wasteful
+================================================================= */
+vector<int> nextGreaterBrute(vector<int>& arr) {
+    int n = arr.size();
+    vector<int> ans(n, -1);          // default: koi greater nahi mila
+
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {     // right mein scan
+            if (arr[j] > arr[i]) {
+                ans[i] = arr[j];               // pehla bada element mil gaya
+                break;                          // aage scan karne ki zarurat nahi
+            }
+        }
+    }
+    return ans;
+}
+
+
+/* =================================================================
+   STEP 3 : HIDDEN OBSERVATION
+   -----------------------------------------------------------------
+   "Next greater" ka matlab:
+        Jo elements mujhse CHOTE hain, unhe future mein
+        KABHI answer nahi bana sakte.
+
+   Example:  [5, 2, 1]
+        5 aaya  -> 2 useless ho gaya, 1 bhi useless ho gaya
+        kyunki future ke liye bhi 5 hi sabse powerful candidate hai.
+
+   => Iska matlab: Useless elements ko turant discard karo,
+      sirf USEFUL candidates ko store karo.
+
+   Yahin se MONOTONIC STACK janam leta hai.
+================================================================= */
+
+
+/* =================================================================
+   STEP 4 & 5 : MONOTONIC STACK (Optimized Approach)
+   -----------------------------------------------------------------
+   Rule:
+        Jab naya element aaye:
+            jab tak stack ka TOP useless hai -> pop karo
+            (pop karte waqt usko apna answer de do, kyunki
+             current element hi uska next greater hai)
+        Fir current element ko push kar do
+        (kyunki ye future elements ke liye ek useful candidate hai)
+
+   Dry Run on [2, 1, 3]:
+        i=0 (val=2): stack empty -> push 0        stack(idx) = [0]
+        i=1 (val=1): 1 < 2(top) -> push 1          stack(idx) = [0,1]
+        i=2 (val=3): 3 > 1(top) -> pop 1, ans[1]=3
+                     3 > 2(top) -> pop 0, ans[0]=3
+                     stack empty -> push 2          stack(idx) = [2]
+
+        Final: ans = [3, 3, -1]   ✅ matches expected output
+
+   Time Complexity : O(n)
+        -> har element EXACTLY ek baar push hota hai
+           aur EXACTLY ek baar pop hota hai.
+================================================================= */
+vector<int> nextGreaterOptimized(vector<int>& arr) {
+    int n = arr.size();
+    vector<int> ans(n, -1);
+    stack<int> st;                 // indices store honge (pending answers)
+
+    for (int i = 0; i < n; i++) {
+
+        // jab tak top "useless" hai (current element usse bada hai)
+        // top useless ho gaya matlab current hi uska next greater hai
+        while (!st.empty() && arr[st.top()] < arr[i]) {
+            int idx = st.top();
+            st.pop();
+            ans[idx] = arr[i];        // answer mil gaya isko
+        }
+
+        // current element ko push karo
+        // ye abhi ke liye "useful candidate" hai, answer pending hai
+        st.push(i);
+    }
+
+    // jo indices stack mein reh gaye, unka next greater kabhi nahi mila
+    // (already -1 hai, kuch karne ki zarurat nahi)
+    return ans;
+}
+
+
+/* =================================================================
+   GENERIC MONOTONIC STACK TEMPLATE
+   -----------------------------------------------------------------
+   current element aaya
+        while (top useless hai)
+              pop() -> answer nikalo (popped wale ke liye)
+        push(current)
+
+   Ye SAME pattern in problems mein bhi reuse hota hai:
+        - Nearest Greater Element
+        - Nearest Smaller Element
+        - Sliding Window Maximum
+        - Sliding Window Minimum
+        - Stock Span / Histogram problems
+
+   -----------------------------------------------------------------
+   3 Patterns, 3 Different Questions:
+
+        Sliding Window  -> "Window valid hai?"
+        Kadane's Algo   -> "Continue karu ya restart?"
+        Monotonic Stack -> "Candidate useful hai ya discard kar du?"
+================================================================= */
+
+
+int main() {
+    vector<int> arr = {2, 1, 3};
+
+    cout << "Input Array              : ";
+    for (int x : arr) cout << x << " ";
+    cout << "\n";
+
+    vector<int> bruteAns = nextGreaterBrute(arr);
+    cout << "Brute Force O(n^2) Result : ";
+    for (int x : bruteAns) cout << x << " ";
+    cout << "\n";
+
+    vector<int> optAns = nextGreaterOptimized(arr);
+    cout << "Monotonic Stack O(n) Result: ";
+    for (int x : optAns) cout << x << " ";
+    cout << "\n";
+
+    return 0;
+}
+
+
+Monotonic Pattern Modules
+
+Phase 1: Foundation
+1. Next Greater Element
+2. Next Smaller Element
+3. Previous Greater Element
+4. Previous Smaller Element
+
+Phase 2: Hidden Monotonic
+1. Daily Temperatures
+2. Stock Span Problem
+3. Online Stock Span
+
+Phase 3: Contribution Pattern
+1. Sum of Subarray Minimums
+2. Sum of Subarray Ranges
+
+Phase 4: Area Pattern
+1. Largest Rectangle in Histogram
+2. Maximal Rectangle
+
+Phase 5: Monotonic Queue
+1. Sliding Window Maximum
+2. Sliding Window Minimum
+
+
+Har Monotonic Question se Pehle Ye 5 Questions Pucho
+
+1. Main nearest kya dhoond raha hu?
+   (greater/smaller)
+
+2. Kya kuch candidates future me useless ho sakte hain?
+
+3. Useless candidate ki condition kya hai?
+
+4. Mujhe order maintain karna hai?
+   (increasing/decreasing)
+
+5. Stack use hoga ya Queue?
