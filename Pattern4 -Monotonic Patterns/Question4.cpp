@@ -90,19 +90,51 @@ i    n      i<n    j=i    j>0     (arr[i]>=arr[i])    true/false         count  
                          
                          inner loop ke bahar ans[1,1,2,4,5,1]
 
+Main kuch elements ko baar-baar compare kar raha hoon.
 
+Ek baar jab koi bada element aa jata hai,
+to usse chote elements future me kabhi answer nahi denge.
+
+Isliye unhe permanently remove kiya ja sakta hai.
                          
-step5:Repeat work analysis:-
-1. Hum jab bhi inner loop chla rhe hai tab hum uske peeche jake check kr rhe hai baar baar ki humra current element se bhi jada chota ya uske barabar koi element hai
-    [10,4,5]
-      0 1 2
+step5: Repeat Work Analysis:-
 
-      its means:- humre liye yha pe main task hai ki iske peeche jaake chote element dhundo ya uske barabar h0
-      jaise 2 pe ho  yha se peeche dekha ur mujhe chota element mila 4 mere liye useful ho gya
-      jab ye condition satisfied nhi huyi jaise 5>=10 tab hume pichla bada element mihl gaya ye to answer mein kabhi bhi yogdhan de h nhi rha hai
-      
-      basicially hume useful candiate find krne hai na ki useless jo hai unhe discard kr denge
-2. hume count maintain krna hai ur count ko reset bhi krna padega
+1. Hum jab bhi inner loop chala rahe hain tab hum baar-baar left side jaakar same elements ko compare kar rahe hain.
+
+   Example:
+
+   [10, 4, 5, 90]
+   0  1  2   3
+
+   Jab current element 90 hai:
+
+   90 >= 5  ✔
+   90 >= 4  ✔
+   90 >= 10 ✔
+
+   Future me agar 120 aata hai:
+
+   120 >= 90 ✔
+   120 >= 5  ✔
+   120 >= 4  ✔
+   120 >= 10 ✔
+
+   Yahan 5 aur 4 ko baar-baar check kiya ja raha hai. Ye repeat work hai.
+
+2. Observe karo ki jab 90 aa gaya to 5 aur 4 dono usse chote hain.
+
+   [10, 4, 5, 90]
+
+   Ab future me jo bhi element aayega, uske liye 5 aur 4 kabhi Previous Greater Element nahi ban sakte.
+
+   Isliye 5 aur 4 useless candidates hain aur inhe permanently remove kiya ja sakta hai.
+
+3. Hume aise candidates maintain karne hain jo future me answer dene ki possibility rakhte hain.
+
+   Jo current element se chote ya equal hain wo future me answer nahi banenge, isliye unhe discard kar denge.
+
+4. Hume span bhi calculate karna hai, isliye element ke saath uska index maintain karna useful rahega.
+
 
 
 step6:Pattern analysis:-
