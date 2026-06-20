@@ -134,26 +134,55 @@ temperatures = [73,74,75,71,69,72,76,73]
  ans:-[]
  
  at i=1
-  if(arr[i]>arr[st.top()]) 74>73
-  ans(1-0)
-  ans[1]
+if(arr[i]>arr[st.top()])  74>73(true)
+ // it means aab 73 answer kisi ka nahi hoga
+stack: se pop hoga
+
+ans:1-0=1
+ans:[1]
+stack:[]
 stack:[1]
 
 at i=2
-  if(arr[i]>arr[st.top()]) 75>74
-  ans(2-1)
-  ans[1,1]
- stack:[2] 
+if(arr[i]>arr[st.top()])  75>74(true)
+ // it means aab 74 answer kisi ka nahi hoga
+stack: se pop hoga
+
+ans:2-1=1
+ans:[1,1]
+stack:[]
+stack:[2]
 
 at i=3
- if(arr[i]>arr[st.top()]) 71>75false
-  push
-  stack:[2]
-  ans[1,1]
- if(arr[i]>arr[st.top()]) 71>74false
-  pop
-  stack:[0,1]
+if(arr[i]>arr[st.top()])  71>75(false)
+ // it means aab 75 bhi kisi ka answer ho skata hai
+stack: push hoga
 
+ans:[1,1]
+stack:[2,3]
+
+at i=4
+69>71
+push(4)
+stack = [2,3,4]
+
+i = 5 (72)
+ 72 > 69 pop
+ idx = 4
+ans[4] = 5-4 = 1
+
+stack = [2,3]
+
+72 > 71
+idx = 3
+ans[3] = 5-3 = 2
+
+stack = [2]
+
+72 > 75 ? false
+push(5)
+
+stack = [2,5]
 class Solution {
 public:
     vector<int> dailyTemperatures(vector<int>& temperatures) {
