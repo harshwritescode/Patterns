@@ -126,8 +126,13 @@ step5:Repeat Work Analysis:-
 
  arr[3]=arr[i]*i-pse*nse-i
        =43*3*1=129
-       
-
+    7.11 contributes 4 times
+81 contributes 2 times
+94 contributes 1 time
+43 contributes 3 times
+3 contributes 5 times   
+11*4 + 81*2 + 94*1 + 43*3 + 3*5
+= 444
         
 Step 6: Pattern Analysis
 1. Hume har subarray ka minimum nahi nikalna hai.
@@ -153,7 +158,19 @@ Step 6: Pattern Analysis
 
 7. Nearest smaller find karne ke liye
    Monotonic Increasing Stack use kar sakte hain.
-
+Har subarray ka minimum
+↓
+Bahut expensive
+↓
+Har element kitni baar minimum hai?
+↓
+Element minimum kab tak reh sakta hai?
+↓
+Usko rokne wala pehla smaller element kaun hai?
+↓
+PSE + NSE
+↓
+Contribution
 
 step7:-Dry Run:-
 arr = [11,81,94,43,3]
